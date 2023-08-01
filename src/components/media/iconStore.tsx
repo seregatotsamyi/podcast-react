@@ -11,6 +11,8 @@ import DefaultAvatarIcon from "../../images/avatar/defult.png";
 import HeartIcon from "../../images/icon/heart-3-line.svg";
 import LogoutIcon from "../../images/icon/logout-box-r-line.svg";
 import LogoImg from "../../images/logo.svg";
+import EyeImg from "../../images/icon/eye-line.svg";
+import EyeOffImg from "../../images/icon/eye-off-line.svg";
 
 const IconStore ={
     HomeIcon: HomeIcon,
@@ -25,6 +27,8 @@ const IconStore ={
     DefaultAvatarIcon,
     HeartIcon,
     LogoutIcon,
-    LogoImg
+    LogoImg,
+    EyeImg,
+    EyeOffImg
 }
 export default IconStore

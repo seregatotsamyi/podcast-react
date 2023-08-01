@@ -161,10 +161,10 @@ const Navbar = (props: NavBarType) => {
                         </div>
                     </div> :
                     <div className="menu__mob-unAuth">
-                        <Link className="header__btn btn  btn_3" to='/login'>
+                        <Link className="header__btn btn  btn_3" to='/login' onClick={toggleShowMenu}>
                             Войти
                         </Link>
-                        <Link className="header__btn btn btn_2" to="/create">
+                        <Link className="header__btn btn btn_2" to="/create" onClick={toggleShowMenu}>
                             Регистрация
                         </Link>
                     </div>}
