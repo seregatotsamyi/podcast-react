@@ -1,13 +1,16 @@
 import {useState} from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { useOutsideClick } from "../../hoc/useOutsideClick";
 import IconStore from "../media/iconStore";
+import {logout} from "../../redux/auth-reducer";
 
-type HeaderBarType = {
-    userImg: string
-}
+// type HeaderBarType = {
+//     userImg: string,
+//     logout: any | undefined
+// }
 
-const HeaderBar = (props: HeaderBarType) => {
+const HeaderBar = (props: any) => {
 
     let [showBar, setShowBar] = useState(false)
 
@@ -23,6 +26,10 @@ const HeaderBar = (props: HeaderBarType) => {
     const classBar = `header__auth-bottom ${isShow}`
 
 
+    const onLogout = () => {
+        props.logout()
+        toggleBar()
+    }
 
     const ref = useOutsideClick(() => {
         if (showBar) {
@@ -63,7 +70,7 @@ const HeaderBar = (props: HeaderBarType) => {
                         </Link>
                     </li>
                     <li className="header__auth-item">
-                        <button className="header__auth-link"  onClick={toggleBar}>
+                        <button className="header__auth-link"  onClick={onLogout}>
                             <img className="header__auth-link-img"
                                  src={IconStore.LogoutIcon} alt="icon" width="20"
                                  height="20"/>
@@ -75,4 +82,6 @@ const HeaderBar = (props: HeaderBarType) => {
         </div>
     )
 }
-export default HeaderBar
+
+const mapStateToProps = (state:any) => ({})
+export default connect(mapStateToProps, logout)(HeaderBar)

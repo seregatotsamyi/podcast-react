@@ -14,6 +14,7 @@ import {compose} from 'redux';
 
 
 function App() {
+
     return (
         <div className="app">
             <HeaderContainer/>

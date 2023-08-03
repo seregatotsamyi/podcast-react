@@ -1,10 +1,11 @@
-import IconStore from "../media/iconStore";
 import {Link} from "react-router-dom";
 import {useForm, SubmitHandler} from "react-hook-form"
 import {emailField, nameField, passwordField} from "../../utils/validators/validators";
 import React, {useState} from "react";
 import PasswordBtnShow from "../Inputs/PasswordBtnShow";
 import Navbar from "../Navbar/Navbar";
+import {register} from "../../redux/auth-reducer";
+import {connect} from "react-redux";
 
 interface ICreateFormInput {
     email: string,
@@ -14,13 +15,15 @@ interface ICreateFormInput {
     accept: boolean
 }
 
-const Create = () => {
+const Create = (props: any) => {
 
     const windowWidth = window.innerWidth;
 
-    const {register, handleSubmit, formState: {errors}} = useForm<ICreateFormInput>()
+    const {register, handleSubmit, formState: {errors}, getValues} = useForm<ICreateFormInput>()
+
 
     const onSubmit: SubmitHandler<ICreateFormInput> = (data) => {
+        props.register(data.email, data.password, data.name)
         console.log(data)
     }
 
@@ -106,8 +109,10 @@ const Create = () => {
                             Повторите пароль
                         </label>
                         <div className="input__input-wrap">
+                            {/*<input className="input__input _pass" type={showPassSecond ? "text" : "password"}*/}
+                            {/*       id="pass2" {...register("passwordSecond", requiredField)}/>*/}
                             <input className="input__input _pass" type={showPassSecond ? "text" : "password"}
-                                   id="pass2" {...register("passwordSecond", passwordField)}/>
+                                   id="pass2" {...register("passwordSecond", {validate: value => value === getValues("password") || 'Пароли не соответствуют'})}/>
                             <PasswordBtnShow class={classShowPassSecond} toggleShowPass={toggleShowPassSecond}/>
                             {errors.passwordSecond && (
                                 <div className="input__error">
@@ -146,4 +151,6 @@ const Create = () => {
     )
 }
 
-export default Create
+const mapStateToProps = (state: any) => ({})
+
+export default connect(mapStateToProps, {register})(Create)

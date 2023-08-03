@@ -2,12 +2,15 @@ import React, {useState} from "react";
 import { NavLink } from "react-router-dom";
 import { useOutsideClick } from "../../hoc/useOutsideClick";
 import IconStore from "../media/iconStore";
+import {connect} from "react-redux";
+import {logout} from "../../redux/auth-reducer";
 
 type HeaderBarType = {
-    userImg: string
+    userImg: string,
+    logout: any
 }
 
-const HeaderBar = (props: HeaderBarType) => {
+const HeaderMobBar = (props: HeaderBarType) => {
 
     let [showBar, setShowBar] = useState(false)
 
@@ -22,7 +25,9 @@ const HeaderBar = (props: HeaderBarType) => {
     const isShow = showBar ? "_open" : ""
     const classBar = `header__auth-bottom ${isShow}`
 
-
+    const onLogout = () => {
+        props.logout()
+    }
 
     return (
         <div className="menu__mob-auth">
@@ -58,7 +63,7 @@ const HeaderBar = (props: HeaderBarType) => {
                         </NavLink>
                     </li>
                     <li className="header__auth-item">
-                        <button className="header__auth-link">
+                        <button className="header__auth-link" onClick={onLogout}>
                             <img className="header__auth-link-img" src={IconStore.LogoutIcon}
                                  alt="Выход" width="20"
                                  height="20"/>
@@ -70,4 +75,5 @@ const HeaderBar = (props: HeaderBarType) => {
         </div>
     )
 }
-export default HeaderBar
+const mapStateToProps = (state:any) => ({})
+export default connect(mapStateToProps, logout)(HeaderMobBar)

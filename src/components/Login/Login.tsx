@@ -4,6 +4,8 @@ import {emailField, passwordField} from "../../utils/validators/validators";
 import React, {useState} from "react";
 import PasswordBtnShow from "../Inputs/PasswordBtnShow";
 import Navbar from "../Navbar/Navbar";
+import {login} from "../../redux/auth-reducer";
+import {connect} from "react-redux";
 
 
 interface IFormInput {
@@ -12,14 +14,14 @@ interface IFormInput {
     rememberMe: boolean
 }
 
-const Login = () => {
+const Login = (props: any) => {
 
     const windowWidth = window.innerWidth;
 
     const {register, handleSubmit, formState: {errors}} = useForm<IFormInput>()
 
     const onSubmit: SubmitHandler<IFormInput> = (data) => {
-        console.log(data)
+        props.login(data.email, data.password, data.rememberMe)
     }
 
     let [showPass, setShowPass] = useState(false)
@@ -102,8 +104,7 @@ const Login = () => {
     )
 }
 
-export default Login
+const mapStateToProps = (state: any) => ({})
 
-function useRef(innerWidth: number) {
-    throw new Error("Function not implemented.");
-}
+export default connect(mapStateToProps, {login})(Login)
+

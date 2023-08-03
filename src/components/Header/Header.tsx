@@ -3,6 +3,8 @@ import BurgerIcon from "../../images/icon/menu-3-line.svg";
 import {Link} from 'react-router-dom';
 import HeaderBar from "./HeaderBar";
 import IconStore from "../media/iconStore";
+import {connect} from "react-redux";
+import {getAuthUserData} from "../../redux/auth-reducer";
 
 
 const Header = (props: any) => {
@@ -10,14 +12,15 @@ const Header = (props: any) => {
     const userImg = IconStore.DefaultAvatarIcon
 
 
+    getAuthUserData()
 
-    useEffect(()=>{
-        if (props.isShowMenu){
+    useEffect(() => {
+        if (props.isShowMenu) {
             document.body.classList.add('_fixed')
         } else {
             document.body.classList.remove('_fixed')
         }
-    },[props.isShowMenu])
+    }, [props.isShowMenu])
 
 
     const toggleShowMenu = () => {
@@ -94,4 +97,5 @@ const Header = (props: any) => {
     );
 }
 
-export default Header;
+const mapStateToProps = (state: any) => ({})
+export default connect(mapStateToProps, getAuthUserData)(Header)
