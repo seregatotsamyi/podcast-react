@@ -1,4 +1,4 @@
-import {authAPI} from "../api/api";
+import {authAPI} from "../api/api"
 
 const SET_USER_DATA = "SET_USER_DATA"
 
@@ -23,11 +23,10 @@ const authReducer = (state = initialState, action: any): InitialStateType => {
             return {
                 ...state,
                 ...action.payload
-
             }
         }
         default:
-            return state;
+            return state
     }
 }
 
@@ -58,10 +57,9 @@ export const setAuthUserDataAC = (userId: number | null, email: string | null, u
 
 export const getAuthUserData = () => async (dispatch: any) => {
     try {
-
-        let response = await authAPI.me();
+        let response = await authAPI.me()
         console.log("getAuthUserData", response)
-        let {id, email, username} = response.data;
+        let {id, email, username} = response.data
         dispatch(setAuthUserDataAC(id, email, username, true))
 
 
@@ -76,7 +74,7 @@ export const getAuthUserData = () => async (dispatch: any) => {
 export const login = (email: string, password: string, rememberMe: boolean) => async (dispatch: any) => {
     try {
         let response = await authAPI.login(email, password, rememberMe)
-        dispatch(getAuthUserData());
+        dispatch(getAuthUserData())
         console.log("login", response)
 
     } catch (err: any) {
@@ -90,7 +88,7 @@ export const login = (email: string, password: string, rememberMe: boolean) => a
 export const register = (email: string, password: string, username: string) => async (dispatch: any) => {
     try {
         let response = await authAPI.register(email, password, username)
-        dispatch(getAuthUserData());
+        dispatch(getAuthUserData())
         console.log("register", response)
 
     } catch (err: any) {
@@ -103,10 +101,9 @@ export const register = (email: string, password: string, username: string) => a
 
 export const logout = () => async (dispatch: any) => {
     try {
-        let response = await authAPI.logout();
+        let response = await authAPI.logout()
         console.log("logout", response)
         dispatch(setAuthUserDataAC(null, null, null, false))
-
 
     } catch (err: any) {
         if (err.status === 401) {
@@ -117,4 +114,4 @@ export const logout = () => async (dispatch: any) => {
 }
 
 
-export default authReducer;
+export default authReducer

@@ -1,16 +1,19 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import BurgerIcon from "../../images/icon/menu-3-line.svg";
 import {Link} from 'react-router-dom';
 import HeaderBar from "./HeaderBar";
 import IconStore from "../media/iconStore";
-import {connect} from "react-redux";
-import {getAuthUserData} from "../../redux/auth-reducer";
 
 
-const Header = (props: any) => {
+type PropsType = {
+    isShowMenu: boolean,
+    toggleShowMenu: (isShow:boolean) => void,
+    isAuth:boolean
+}
+
+const Header = (props: PropsType) => {
 
     const userImg = IconStore.DefaultAvatarIcon
-
 
     useEffect(() => {
         if (props.isShowMenu) {
@@ -20,11 +23,9 @@ const Header = (props: any) => {
         }
     }, [props.isShowMenu])
 
-
     const toggleShowMenu = () => {
         props.toggleShowMenu(true)
     }
-
 
     return (
         <header className="header">
@@ -77,7 +78,6 @@ const Header = (props: any) => {
                                 </div>
                             }
 
-
                             <button className="header__burger burger js-toggle-menu" type="button"
                                     onClick={toggleShowMenu}>
                                 <img className="burger__img" src={BurgerIcon} alt="menu-3-line.svg"
@@ -87,14 +87,11 @@ const Header = (props: any) => {
 
                     </div>
 
-
                 </div>
 
             </div>
         </header>
     );
 }
-const mapStateToProps = (state: any) => ({
 
-})
-export default connect(mapStateToProps, {})(Header)
+export default Header

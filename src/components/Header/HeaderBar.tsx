@@ -1,19 +1,26 @@
 import {useState} from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { useOutsideClick } from "../../hoc/useOutsideClick";
+import {connect} from "react-redux";
+import {Link} from "react-router-dom";
+import {useOutsideClick} from "../../hoc/useOutsideClick";
 import IconStore from "../media/iconStore";
 import {logout} from "../../redux/auth-reducer";
 import {userMe} from "../../redux/auth-selectors";
+import {UserMeType} from "../../types/type";
+import {AppStateType} from "../../redux/redux-store";
 
-// type HeaderBarType = {
-//     userImg: string,
-//     logout: any | undefined
-// }
+type MapStatePropsType = {
+    userMe: UserMeType
+}
 
-const HeaderBar = (props: any) => {
+type MapDispatchPropsType = {
+    logout: () => void
+}
 
-    let [showBar, setShowBar] = useState(false)
+type PropsType = MapStatePropsType & MapDispatchPropsType
+
+const HeaderBar = (props: PropsType) => {
+
+    let [showBar, setShowBar] = useState<boolean>(false)
 
     const toggleBar = () => {
         if (showBar) {
@@ -45,7 +52,7 @@ const HeaderBar = (props: any) => {
                      width="36" height="36"/>
                 <div className="header__auth-name">{props.userMe.username}</div>
             </div>
-            <div className={classBar} >
+            <div className={classBar}>
                 <ul className="header__auth-list">
                     <li className="header__auth-item">
                         <Link className="header__auth-link" to="/my/podcasts" onClick={toggleBar}>
@@ -71,7 +78,7 @@ const HeaderBar = (props: any) => {
                         </Link>
                     </li>
                     <li className="header__auth-item">
-                        <button className="header__auth-link"  onClick={onLogout}>
+                        <button className="header__auth-link" onClick={onLogout}>
                             <img className="header__auth-link-img"
                                  src={IconStore.LogoutIcon} alt="icon" width="20"
                                  height="20"/>
@@ -84,7 +91,7 @@ const HeaderBar = (props: any) => {
     )
 }
 
-const mapStateToProps = (state:any) => ({
+const mapStateToProps = (state: AppStateType) => ({
     userMe: userMe(state)
 })
-export default connect(mapStateToProps, {logout})(HeaderBar)
+export default connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, {logout})(HeaderBar)

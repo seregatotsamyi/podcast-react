@@ -1,17 +1,21 @@
-import {applyMiddleware, combineReducers} from "redux";
-import thunkMiddleware from "redux-thunk";
-import authReducer from "./auth-reducer";
-import appReducer from "./app-reducer";
+import {applyMiddleware, combineReducers} from "redux"
+import thunkMiddleware from "redux-thunk"
+import authReducer from "./auth-reducer"
+import appReducer from "./app-reducer"
 
-const {createStore} = require("redux");
+const {createStore} = require("redux")
 
-let reducers = combineReducers({
+let rootReducer = combineReducers({
     auth: authReducer,
     app: appReducer,
-});
+})
 
-let store = createStore(reducers, applyMiddleware(thunkMiddleware));
+type rootReducerType = typeof rootReducer
+export type AppStateType = ReturnType<rootReducerType>
 
-//window.store = store;
+let store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
 
-export default store;
+// @ts-ignore
+window.store = store
+
+export default store

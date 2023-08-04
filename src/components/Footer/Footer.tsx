@@ -2,7 +2,7 @@ import React from "react";
 import logoImg from "../../images/logo.svg";
 import {Link, NavLink} from 'react-router-dom';
 
-const Footer = (props: any) => {
+const Footer = () => {
 
     return (
         <footer className="footer">

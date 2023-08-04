@@ -16,7 +16,7 @@ import EyeOffImg from "../../images/icon/eye-off-line.svg";
 import PreloadImg from "../../images/preload.svg";
 
 
-const IconStore ={
+const IconStore = {
     HomeIcon: HomeIcon,
     BurgerIcon: BurgerIcon,
     FlashlightIcon,

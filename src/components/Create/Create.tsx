@@ -7,6 +7,7 @@ import Navbar from "../Navbar/Navbar";
 import {register} from "../../redux/auth-reducer";
 import {connect} from "react-redux";
 import {isAuth} from "../../redux/auth-selectors";
+import {AppStateType} from "../../redux/redux-store";
 
 interface ICreateFormInput {
     email: string,
@@ -16,20 +17,29 @@ interface ICreateFormInput {
     accept: boolean
 }
 
-const Create = (props: any) => {
+type MapStatePropsType = {
+    isAuth: boolean,
+}
+
+type MapDispatchPropsType = {
+    register: (email: string, password: string, name: string) => void
+}
+
+type PropsType = MapStatePropsType & MapDispatchPropsType
+
+const Create: React.FC<PropsType> = (props) => {
 
     const windowWidth = window.innerWidth;
 
     const {register, handleSubmit, formState: {errors}, getValues} = useForm<ICreateFormInput>()
-
 
     const onSubmit: SubmitHandler<ICreateFormInput> = (data) => {
         props.register(data.email, data.password, data.name)
         console.log(data)
     }
 
-    let [showPass, setShowPass] = useState(false)
-    let [showPassSecond, setShowPassSecond] = useState(false)
+    let [showPass, setShowPass] = useState<boolean>(false)
+    let [showPassSecond, setShowPassSecond] = useState<boolean>(false)
 
     const toggleShowPass = () => {
         if (showPass) {
@@ -156,10 +166,10 @@ const Create = (props: any) => {
     )
 }
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: AppStateType):MapStatePropsType => {
     return {
-        isAuth: isAuth(state)
+        isAuth: isAuth(state),
     }
 }
 
-export default connect(mapStateToProps, {register})(Create)
+export default connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, {register})(Create)

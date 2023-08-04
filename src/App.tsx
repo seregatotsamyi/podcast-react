@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import './css/style.min.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {connect, Provider} from "react-redux";
@@ -15,13 +15,18 @@ import {initializeApp} from "./redux/app-reducer";
 import Preloader from "./components/Preloader/Preloader";
 
 
-function App(props:any) {
+type PropsType ={
+    initialized: boolean,
+    initializeApp: () => void
+}
+
+const App:React.FC<PropsType> =({initialized,initializeApp}) => {
 
     useEffect(() => {
-        props.initializeApp();
+        initializeApp();
     });
 
-    if (!props.initialized) {
+    if (!initialized) {
         return <Preloader/>
     }
 
@@ -47,14 +52,14 @@ function App(props:any) {
 }
 
 const mapStateToProps = (state: any) => ({
-    initialized: state.app.initialized
+    initialized: state.app.initialized,
 })
 
 let AppContainer = compose(
     connect(mapStateToProps, {initializeApp})(App)
 )
 
-const MainApp = (props: any) => {
+const MainApp = () => {
     return <BrowserRouter>
         <Provider store={store}>
             <AppContainer/>
