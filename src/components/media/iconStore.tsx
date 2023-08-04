@@ -13,6 +13,8 @@ import LogoutIcon from "../../images/icon/logout-box-r-line.svg";
 import LogoImg from "../../images/logo.svg";
 import EyeImg from "../../images/icon/eye-line.svg";
 import EyeOffImg from "../../images/icon/eye-off-line.svg";
+import PreloadImg from "../../images/preload.svg";
+
 
 const IconStore ={
     HomeIcon: HomeIcon,
@@ -29,6 +31,7 @@ const IconStore ={
     LogoutIcon,
     LogoImg,
     EyeImg,
-    EyeOffImg
+    EyeOffImg,
+    PreloadImg
 }
 export default IconStore

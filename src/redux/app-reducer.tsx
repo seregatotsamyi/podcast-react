@@ -1,12 +1,17 @@
-const TOGGLE_SHOW_MENU = 'TOGGLE_SHOW_MENU';
+import { getAuthUserData } from "./auth-reducer"
+
+const TOGGLE_SHOW_MENU = 'TOGGLE_SHOW_MENU'
+const INITIALIZED_SUCCESS = "INITIALIZED_SUCCESS"
 
 
 export type InitialStateType = {
     isShowMenu: boolean,
+    initialized: boolean
 }
 
 let initialState: InitialStateType = {
     isShowMenu: false,
+    initialized: false
 }
 
 const appReducer = (state = initialState, action:any): InitialStateType => {
@@ -16,6 +21,12 @@ const appReducer = (state = initialState, action:any): InitialStateType => {
                 ...state,
                 isShowMenu: action.isShow
             }
+        }
+        case INITIALIZED_SUCCESS: {
+            return {
+                ...state,
+                initialized: true,
+            };
         }
         default:
             return state;
@@ -29,5 +40,22 @@ export const toggleShowMenu = (isShow:boolean) => {
     })
 }
 
+type InitializedSuccessActionType = {
+    type: typeof INITIALIZED_SUCCESS
+}
+
+export const setInitializedSuccess = (): InitializedSuccessActionType => {
+    return {
+        type: INITIALIZED_SUCCESS,
+    }
+}
+export const initializeApp = () => (dispatch:any) => {
+    let promise = dispatch(getAuthUserData());
+
+    Promise.all([promise]).then(() => {
+        dispatch(setInitializedSuccess());
+    })
+
+}
 
 export default appReducer;

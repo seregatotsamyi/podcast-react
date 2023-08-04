@@ -1,4 +1,4 @@
-import {Link} from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
 import {useForm, SubmitHandler} from "react-hook-form"
 import {emailField, nameField, passwordField} from "../../utils/validators/validators";
 import React, {useState} from "react";
@@ -6,6 +6,7 @@ import PasswordBtnShow from "../Inputs/PasswordBtnShow";
 import Navbar from "../Navbar/Navbar";
 import {register} from "../../redux/auth-reducer";
 import {connect} from "react-redux";
+import {isAuth} from "../../redux/auth-selectors";
 
 interface ICreateFormInput {
     email: string,
@@ -50,6 +51,10 @@ const Create = (props: any) => {
 
     const isShowPassSecond = showPassSecond ? "_show" : ""
     const classShowPassSecond = `input__icon ${isShowPassSecond}`
+
+    if (props.isAuth) {
+        return <Navigate to="/"/>
+    }
 
     return (
         <section className="login">
@@ -151,6 +156,10 @@ const Create = (props: any) => {
     )
 }
 
-const mapStateToProps = (state: any) => ({})
+const mapStateToProps = (state: any) => {
+    return {
+        isAuth: isAuth(state)
+    }
+}
 
 export default connect(mapStateToProps, {register})(Create)

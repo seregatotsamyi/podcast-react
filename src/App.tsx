@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './css/style.min.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {connect, Provider} from "react-redux";
@@ -11,9 +11,19 @@ import SceletonPage from "./components/SceletonPage/SceletonPage";
 import MainPage from "./components/MainPage/MainPage";
 import RecommendationsContainer from './components/Recommendations/RecommendationsContainer';
 import {compose} from 'redux';
+import {initializeApp} from "./redux/app-reducer";
+import Preloader from "./components/Preloader/Preloader";
 
 
-function App() {
+function App(props:any) {
+
+    useEffect(() => {
+        props.initializeApp();
+    });
+
+    if (!props.initialized) {
+        return <Preloader/>
+    }
 
     return (
         <div className="app">
@@ -37,11 +47,11 @@ function App() {
 }
 
 const mapStateToProps = (state: any) => ({
-
+    initialized: state.app.initialized
 })
 
 let AppContainer = compose(
-    connect(mapStateToProps, {})(App)
+    connect(mapStateToProps, {initializeApp})(App)
 )
 
 const MainApp = (props: any) => {

@@ -1,4 +1,4 @@
-import {Link} from "react-router-dom";
+import {Link, Navigate, redirect} from "react-router-dom";
 import {useForm, SubmitHandler} from "react-hook-form"
 import {emailField, passwordField} from "../../utils/validators/validators";
 import React, {useState} from "react";
@@ -6,6 +6,7 @@ import PasswordBtnShow from "../Inputs/PasswordBtnShow";
 import Navbar from "../Navbar/Navbar";
 import {login} from "../../redux/auth-reducer";
 import {connect} from "react-redux";
+import {isAuth} from "../../redux/auth-selectors";
 
 
 interface IFormInput {
@@ -14,14 +15,16 @@ interface IFormInput {
     rememberMe: boolean
 }
 
-const Login = (props: any) => {
+
+const Login: any = ({isAuth, login}: any) => {
+
 
     const windowWidth = window.innerWidth;
 
     const {register, handleSubmit, formState: {errors}} = useForm<IFormInput>()
 
     const onSubmit: SubmitHandler<IFormInput> = (data) => {
-        props.login(data.email, data.password, data.rememberMe)
+        login(data.email, data.password, data.rememberMe)
     }
 
     let [showPass, setShowPass] = useState(false)
@@ -37,6 +40,9 @@ const Login = (props: any) => {
     const isShowPass = showPass ? "_show" : ""
     const classShowPass = `input__icon ${isShowPass}`
 
+    if (isAuth) {
+        return <Navigate to="/"/>
+    }
     return (
         <section className="login">
             {windowWidth < 1025 ? <Navbar/> : ""}
@@ -104,7 +110,11 @@ const Login = (props: any) => {
     )
 }
 
-const mapStateToProps = (state: any) => ({})
+const mapStateToProps = (state: any) => {
+    return {
+        isAuth: isAuth(state)
+    }
+}
 
 export default connect(mapStateToProps, {login})(Login)
 

@@ -76,4 +76,4 @@ const HeaderMobBar = (props: HeaderBarType) => {
     )
 }
 const mapStateToProps = (state:any) => ({})
-export default connect(mapStateToProps, logout)(HeaderMobBar)
+export default connect(mapStateToProps, {logout})(HeaderMobBar)

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useOutsideClick } from "../../hoc/useOutsideClick";
 import IconStore from "../media/iconStore";
 import {logout} from "../../redux/auth-reducer";
+import {userMe} from "../../redux/auth-selectors";
 
 // type HeaderBarType = {
 //     userImg: string,
@@ -42,7 +43,7 @@ const HeaderBar = (props: any) => {
             <div className="header__auth-top js-auth-list" onClick={toggleBar}>
                 <img className="header__auth-img" src={IconStore.DefaultAvatarIcon} alt="avatar"
                      width="36" height="36"/>
-                <div className="header__auth-name">Сергей Москалев</div>
+                <div className="header__auth-name">{props.userMe.username}</div>
             </div>
             <div className={classBar} >
                 <ul className="header__auth-list">
@@ -83,5 +84,7 @@ const HeaderBar = (props: any) => {
     )
 }
 
-const mapStateToProps = (state:any) => ({})
-export default connect(mapStateToProps, logout)(HeaderBar)
+const mapStateToProps = (state:any) => ({
+    userMe: userMe(state)
+})
+export default connect(mapStateToProps, {logout})(HeaderBar)

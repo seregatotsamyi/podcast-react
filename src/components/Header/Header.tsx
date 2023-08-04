@@ -12,8 +12,6 @@ const Header = (props: any) => {
     const userImg = IconStore.DefaultAvatarIcon
 
 
-    getAuthUserData()
-
     useEffect(() => {
         if (props.isShowMenu) {
             document.body.classList.add('_fixed')
@@ -96,6 +94,7 @@ const Header = (props: any) => {
         </header>
     );
 }
+const mapStateToProps = (state: any) => ({
 
-const mapStateToProps = (state: any) => ({})
-export default connect(mapStateToProps, getAuthUserData)(Header)
+})
+export default connect(mapStateToProps, {})(Header)

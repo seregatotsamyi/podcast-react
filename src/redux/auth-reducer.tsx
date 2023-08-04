@@ -58,6 +58,7 @@ export const setAuthUserDataAC = (userId: number | null, email: string | null, u
 
 export const getAuthUserData = () => async (dispatch: any) => {
     try {
+
         let response = await authAPI.me();
         console.log("getAuthUserData", response)
         let {id, email, username} = response.data;
