@@ -11,7 +11,7 @@ type PropsType = {
     isAuth:boolean
 }
 
-const Header = (props: PropsType) => {
+const Header:React.FC<PropsType>  = (props) => {
 
     const userImg = IconStore.DefaultAvatarIcon
 

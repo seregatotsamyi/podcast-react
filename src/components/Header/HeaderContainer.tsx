@@ -18,11 +18,9 @@ type MapDispatchType = {
 type PropsType = MapStatePropsType & MapDispatchType
 
 const HeaderContainer = (props: PropsType) => {
-
     return (
         <Header isAuth={props.isAuth} isShowMenu={props.isShowMenu} toggleShowMenu={props.toggleShowMenu}/>
     )
-
 
 }
 

@@ -15,8 +15,11 @@ type MapStatePropsType = {
 type MapDispatchPropsType = {
     logout: () => void
 }
+type OwnPropsType = {
+    userImg: any
+}
 
-type PropsType = MapStatePropsType & MapDispatchPropsType
+type PropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType
 
 const HeaderBar = (props: PropsType) => {
 

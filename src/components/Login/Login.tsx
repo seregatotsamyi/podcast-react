@@ -1,4 +1,4 @@
-import {Link, Navigate, redirect} from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
 import {useForm, SubmitHandler} from "react-hook-form"
 import {emailField, passwordField} from "../../utils/validators/validators";
 import React, {useState} from "react";
@@ -7,6 +7,7 @@ import Navbar from "../Navbar/Navbar";
 import {login} from "../../redux/auth-reducer";
 import {connect} from "react-redux";
 import {isAuth} from "../../redux/auth-selectors";
+import {AppStateType} from "../../redux/redux-store";
 
 
 interface IFormInput {
@@ -15,8 +16,13 @@ interface IFormInput {
     rememberMe: boolean
 }
 
+type PropsType = {
+    isAuth: boolean,
+    login: (email: string, password: string, rememberMe: boolean) => void
+}
 
-const Login: any = ({isAuth, login}: any) => {
+
+const Login: React.FC<PropsType> = ({isAuth, login}) => {
 
 
     const windowWidth = window.innerWidth;
@@ -75,7 +81,7 @@ const Login: any = ({isAuth, login}: any) => {
                             <input className="input__input _pass" type={showPass ? "text" : "password"}
                                    id="pass" {...register("password", passwordField)}/>
 
-                            <PasswordBtnShow class={classShowPass} toggleShowPass={toggleShowPass}/>
+                            <PasswordBtnShow classN={classShowPass} toggleShowPass={toggleShowPass}/>
                             {errors.password && (
                                 <div className="input__error">
                                     {errors.password.message}
@@ -110,7 +116,7 @@ const Login: any = ({isAuth, login}: any) => {
     )
 }
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: AppStateType) => {
     return {
         isAuth: isAuth(state)
     }

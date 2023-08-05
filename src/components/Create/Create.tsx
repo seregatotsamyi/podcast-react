@@ -110,7 +110,7 @@ const Create: React.FC<PropsType> = (props) => {
                         <div className="input__input-wrap">
                             <input className="input__input _pass" type={showPass ? "text" : "password"}
                                    id="pass" {...register("password", passwordField)}/>
-                            <PasswordBtnShow class={classShowPass} toggleShowPass={toggleShowPass}/>
+                            <PasswordBtnShow classN={classShowPass} toggleShowPass={toggleShowPass}/>
                             {errors.password && (
                                 <div className="input__error">
                                     {errors.password.message}
@@ -128,7 +128,7 @@ const Create: React.FC<PropsType> = (props) => {
                             {/*       id="pass2" {...register("passwordSecond", requiredField)}/>*/}
                             <input className="input__input _pass" type={showPassSecond ? "text" : "password"}
                                    id="pass2" {...register("passwordSecond", {validate: value => value === getValues("password") || 'Пароли не соответствуют'})}/>
-                            <PasswordBtnShow class={classShowPassSecond} toggleShowPass={toggleShowPassSecond}/>
+                            <PasswordBtnShow classN={classShowPassSecond} toggleShowPass={toggleShowPassSecond}/>
                             {errors.passwordSecond && (
                                 <div className="input__error">
                                     {errors.passwordSecond.message}

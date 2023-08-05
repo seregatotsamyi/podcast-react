@@ -78,7 +78,7 @@ export const login = (email: string, password: string, rememberMe: boolean) => a
         console.log("login", response)
 
     } catch (err: any) {
-        if (err.response.status === 422) {
+        if (err.status === 422) {
             console.log("error 422 validation")
         }
         console.log(err)
@@ -92,7 +92,7 @@ export const register = (email: string, password: string, username: string) => a
         console.log("register", response)
 
     } catch (err: any) {
-        if (err.response.status === 422) {
+        if (err.status === 422) {
             console.log("error 422 validation")
         }
         console.log(err)

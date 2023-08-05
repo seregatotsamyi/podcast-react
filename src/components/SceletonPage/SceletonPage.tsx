@@ -3,7 +3,7 @@ import {Outlet,} from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 
 
-const SceletonPage = (props: any) => {
+const SceletonPage = () => {
     return (
         <main className="main container">
 

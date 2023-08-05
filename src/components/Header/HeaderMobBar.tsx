@@ -4,15 +4,16 @@ import { useOutsideClick } from "../../hoc/useOutsideClick";
 import IconStore from "../media/iconStore";
 import {connect} from "react-redux";
 import {logout} from "../../redux/auth-reducer";
+import {AppStateType} from "../../redux/redux-store";
 
 type HeaderBarType = {
     userImg: string,
-    logout: any
+    logout: () => void
 }
 
 const HeaderMobBar = (props: HeaderBarType) => {
 
-    let [showBar, setShowBar] = useState(false)
+    let [showBar, setShowBar] = useState<boolean>(false)
 
     const toggleBar = () => {
         if (showBar) {
@@ -22,8 +23,6 @@ const HeaderMobBar = (props: HeaderBarType) => {
         }
     }
 
-    const isShow = showBar ? "_open" : ""
-    const classBar = `header__auth-bottom ${isShow}`
 
     const onLogout = () => {
         props.logout()
@@ -75,5 +74,5 @@ const HeaderMobBar = (props: HeaderBarType) => {
         </div>
     )
 }
-const mapStateToProps = (state:any) => ({})
+const mapStateToProps = (state:AppStateType) => ({})
 export default connect(mapStateToProps, {logout})(HeaderMobBar)

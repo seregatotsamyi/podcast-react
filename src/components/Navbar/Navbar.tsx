@@ -7,15 +7,15 @@ import IconStore from "../media/iconStore";
 import {isShowMenu} from "../../redux/app-selectors";
 import {toggleShowMenu} from "../../redux/app-reducer";
 import {useOutsideClick} from "../../hoc/useOutsideClick";
-import useBodyClass from "../utils/useBodyClass";
+import {AppStateType} from "../../redux/redux-store";
 
-type NavBarType = {
+type PropsType = {
     isAuth: boolean,
     isShowMenu: boolean,
-    toggleShowMenu: any
+    toggleShowMenu: (isShow: boolean) => void
 }
 
-const Navbar = (props: NavBarType) => {
+const Navbar: React.FC<PropsType> = (props) => {
 
     const toggleShowMenu = () => {
         props.toggleShowMenu(false)
@@ -27,7 +27,7 @@ const Navbar = (props: NavBarType) => {
         }
     });
 
-    let [showBar, setShowBar] = useState(false)
+    let [showBar, setShowBar] = useState<boolean>(false)
 
     const isShowMenu = props.isShowMenu ? "_open" : ""
     const classMenu = `menu ${isShowMenu}`
@@ -175,7 +175,7 @@ const Navbar = (props: NavBarType) => {
     )
 }
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: AppStateType) => ({
     isAuth: isAuth(state),
     isShowMenu: isShowMenu(state)
 })
